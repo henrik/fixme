@@ -1,6 +1,6 @@
 require "fixme"
 
-describe Fixme, "#TODO" do
+describe Fixme, "#FIXME" do
   it "raises after the given date" do
     expect {
       FIXME "2013-12-31: Remove this stuff."

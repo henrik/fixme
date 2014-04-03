@@ -6,6 +6,8 @@ module Fixme
 
   module Mixin
     def FIXME(date_and_message)
+      return if ENV["DO_NOT_RAISE_FIXMES"]
+
       raw_date, message = date_and_message.split(": ", 2)
       due_date = Date.parse(raw_date)
 

@@ -56,6 +56,10 @@ describe Fixme, "#TODO" do
   end
 
   context "when a Rack environment is detected" do
+    before do
+      ENV.stub(:[]).with("DO_NOT_RAISE_FIXMES")
+    end
+
     it "raises in the 'test' environment" do
       ENV.stub(:[]).with("RACK_ENV").and_return("test")
       expect_to_raise
@@ -70,6 +74,11 @@ describe Fixme, "#TODO" do
       ENV.stub(:[]).with("RACK_ENV").and_return("production")
       expect_not_to_raise
     end
+  end
+
+  it "does not raise when the DO_NOT_RAISE_FIXMES environment variable is set" do
+    ENV.stub(:[]).with("DO_NOT_RAISE_FIXMES").and_return("true")
+    expect_not_to_raise
   end
 
   private

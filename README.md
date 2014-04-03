@@ -20,7 +20,9 @@ You may want to use these bad boys next to:
 
 If `Rails.environment` (Ruby on Rails) or `ENV["RACK_ENV"]` (e.g. Sinatra) is present, it will only ever raise in the `"test"` and `"development"` environments. That is, the production app will never raise these exceptions.
 
-Protip: make sure it's clear from the exception or from a separate comment just what should be done – sometimes not even the person who wrote the quickfix will remember what part you're meant to fix.
+If you don't want your CI server to raise, make it set the environment variable `DO_NOT_RAISE_FIXMES`. I like having CI raise them, though.
+
+Protip: make sure it's clear from the exception or from a separate comment just what should be done – sometimes not even the person who wrote the quickfix will remember what you're meant to change.
 
 This library is an extraction of a helper (originally called `wip_raise`) we tried and liked at [Barsoom](http://barsoom.se).
 

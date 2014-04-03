@@ -6,7 +6,7 @@ module Fixme
 
   module Mixin
     def FIXME(date_and_message)
-      raw_date, message = date_and_message.split(": ")
+      raw_date, message = date_and_message.split(": ", 2)
       due_date = Date.parse(raw_date)
 
       return if Date.today < due_date

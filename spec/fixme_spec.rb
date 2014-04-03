@@ -19,6 +19,12 @@ describe Fixme, "#TODO" do
     }.not_to raise_error
   end
 
+  it "parses the date and message flawlessly" do
+    expect {
+      FIXME "2013-12-31: Remove this: and this."
+    }.to raise_error("Fix by 2013-12-31: Remove this: and this.")
+  end
+
   it "is available everywhere" do
     expect {
       "some random object".instance_eval do

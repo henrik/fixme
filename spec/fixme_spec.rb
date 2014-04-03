@@ -19,6 +19,7 @@ describe Fixme, "#TODO" do
     }.not_to raise_error
   end
 
+  # Had a bug with ": " in the message.
   it "parses the date and message flawlessly" do
     expect {
       FIXME "2013-12-31: Remove this: and this."

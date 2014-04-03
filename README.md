@@ -40,7 +40,7 @@ Clone the repo, then:
 
 ```
 bundle  # Install gem dependencies.
-rspec   # Run tests.
+rake    # Run tests.
 ```
 
 

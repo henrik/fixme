@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Fixme::VERSION
   spec.authors       = ["Henrik Nyh"]
   spec.email         = ["henrik@nyh.se"]
-  spec.summary       = %q{FIXME comments that raise after a certain point in time.}
+  spec.summary       = %q{Comments that raise after a certain point in time.}
   spec.homepage      = ""
   spec.license       = "MIT"
 

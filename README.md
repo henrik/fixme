@@ -9,7 +9,7 @@ currency = "USD"
 
 This gem makes a `FIXME()` method available everywhere.
 
-Starting July 31st 2014, the "FIXME" line in the example above would start raising an `Fixme::UnfixedError` with the message `"Fix by 2014-07-31: Stop hard-coding currency."`
+Starting July 31st 2014, the "FIXME" line in the example above would raise `Fixme::UnfixedError` with the message `"Fix by 2014-07-31: Stop hard-coding currency."`
 
 You may want to use these bad boys next to:
 

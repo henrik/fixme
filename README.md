@@ -7,14 +7,16 @@ FIXME "2014-07-31: Stop hard-coding currency."
 currency = "USD"
 ```
 
-You may want to use them next to:
+This gem makes a `FIXME()` method available everywhere.
+
+Starting July 31st 2014, the "FIXME" line in the example above would start raising an exception with the given message.
+
+You may want to use these bad boys next to:
 
   * Temporary quick fixes, to ensure they really *are* temporary.
   * Code that supports legacy workflows during a transitional period.
   * Experiments, to remember to evaluate them and make a decision.
   * Anything else you can't do now but should fix later.
-
-Starting July 31st 2014, the "FIXME" line in the example above would start raising an exception with the given message.
 
 If `Rails.environment` (Ruby on Rails) or `ENV["RACK_ENV"]` (e.g. Sinatra) is present, it will only ever raise in the `"test"` and `"development"` environments. That is, the production app will never raise these exceptions.
 

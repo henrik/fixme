@@ -16,7 +16,7 @@ You may want to use them next to:
 
 Starting July 31st 2014, the "FIXME" line in the example above would start raising an exception with the given message.
 
-If `Rails.environment` (Ruby on Rails) or `ENV["RACK_ENV"]` (e.g. Sinatra) is present, it will only ever raise in the `"test"` environment. The production app will never raise these exceptions.
+If `Rails.environment` (Ruby on Rails) or `ENV["RACK_ENV"]` (e.g. Sinatra) is present, it will only ever raise in the `"test"` and `"development"` environments. That is, the production app will never raise these exceptions.
 
 
 ## Installation

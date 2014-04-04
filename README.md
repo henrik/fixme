@@ -52,6 +52,13 @@ rake    # Run tests.
 ```
 
 
+## Contributors
+
+* [Henrik Trotzig](https://www.causes.com/henric)
+* [Henrik Nyh](http://henrik.nyh.se)
+* Kim Persson
+
+
 ## License
 
 Copyright (c) 2014 Henrik Nyh

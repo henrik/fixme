@@ -7,6 +7,7 @@ module Fixme
   module Mixin
     def FIXME(date_and_message)
       return if ENV["DO_NOT_RAISE_FIXMES"]
+
       env = defined?(Rails) ? Rails.env : ENV["RACK_ENV"]
       return unless [ "", "test", "development" ].include?(env.to_s)
 

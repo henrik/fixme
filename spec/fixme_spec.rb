@@ -49,9 +49,16 @@ describe Fixme, "#FIXME" do
       expect_to_raise
     end
 
-    it "does not raise in other environments" do
-      Rails.stub(env: "production")
-      expect_not_to_raise
+    context "in other environments" do
+      before { Rails.stub(env: "production") }
+
+      it "does not raise" do
+        expect_not_to_raise
+      end
+
+      it "does not parse the date" do
+        expect_not_to_parse_date
+      end
     end
   end
 
@@ -76,9 +83,16 @@ describe Fixme, "#FIXME" do
     end
   end
 
-  it "does not raise when the DO_NOT_RAISE_FIXMES environment variable is set" do
-    ENV.stub(:[]).with("DO_NOT_RAISE_FIXMES").and_return("true")
-    expect_not_to_raise
+  context "when the DO_NOT_RAISE_FIXMES environment variable is set" do
+    before { ENV.stub(:[]).with("DO_NOT_RAISE_FIXMES").and_return("true") }
+
+    it "does not raise" do
+      expect_not_to_raise
+    end
+
+    it 'does not parse the date' do
+      expect_not_to_parse_date
+    end
   end
 
   private
@@ -89,5 +103,10 @@ describe Fixme, "#FIXME" do
 
   def expect_not_to_raise
     expect { FIXME "2013-12-31: X" }.not_to raise_error
+  end
+
+  def expect_not_to_parse_date
+    Date.stub(:parse) { raise("Unnecessary date parsing") }
+    expect_not_to_raise
   end
 end

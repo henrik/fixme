@@ -18,7 +18,7 @@ You may want to use these bad boys next to:
   * Experiments, to remember to evaluate them and make a decision.
   * Anything else you can't do now but should fix later.
 
-If `Rails.environment` (Ruby on Rails) or `ENV["RACK_ENV"]` (e.g. Sinatra) is present, it will only ever raise in the `"test"` and `"development"` environments. That is, the production app will never raise these exceptions.
+If `Rails.env` (Ruby on Rails) or `ENV["RACK_ENV"]` (e.g. Sinatra) is present, it will only ever raise in the `"test"` and `"development"` environments. That is, the production app will never raise these exceptions.
 
 If you don't want your CI server to raise, make it set the environment variable `DO_NOT_RAISE_FIXMES`. I like having CI raise them, though.
 

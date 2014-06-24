@@ -13,9 +13,18 @@ module Fixme
 
       raw_date, message = date_and_message.split(": ", 2)
       due_date = Date.parse(raw_date)
-      return if Date.today < due_date
 
-      raise UnfixedError, "Fix by #{due_date}: #{message}"
+      raise_if_due = -> {
+        if Date.today >= due_date
+          raise UnfixedError, "Fix by #{due_date}: #{message}"
+        end
+      }
+
+      if defined?(Timecop)
+        Timecop.return(&raise_if_due)
+      else
+        raise_if_due.call
+      end
     end
   end
 end

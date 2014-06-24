@@ -1,4 +1,5 @@
 require "fixme"
+require "timecop"
 
 describe Fixme, "#FIXME" do
   it "raises after the given date" do
@@ -32,6 +33,16 @@ describe Fixme, "#FIXME" do
         FIXME "2013-12-31: Make it work everywhere."
       end
     }.to raise_error(Fixme::UnfixedError)
+  end
+
+  it "is not fooled by the Timecop gem" do
+    future_date = Date.today + 2
+
+    Timecop.travel(future_date) do
+      expect {
+        FIXME "#{future_date}: Travel back in time."
+      }.not_to raise_error
+    end
   end
 
   context "when a Rails environment is detected" do

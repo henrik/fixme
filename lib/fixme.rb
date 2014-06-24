@@ -21,7 +21,7 @@ module Fixme
 
     def run
       return if ENV["DO_NOT_RAISE_FIXMES"]
-      return unless RUN_ONLY_IN_FRAMEWORK_ENVS.include?(framework_env.to_s)
+      return unless RUN_ONLY_IN_FRAMEWORK_ENVS.include?(framework_env)
 
       due_date, message = parse
 
@@ -35,7 +35,7 @@ module Fixme
     private
 
     def framework_env
-      defined?(Rails) ? Rails.env : ENV["RACK_ENV"]
+      defined?(Rails) ? Rails.env.to_s : ENV["RACK_ENV"]
     end
 
     def disallow_timecop(&block)

@@ -40,48 +40,56 @@ describe Fixme, "#FIXME" do
     end
 
     it "raises in the 'test' environment" do
-      Rails.stub(env: "test")
+      stub_rails_env "test"
       expect_to_raise
     end
 
     it "raises in the 'development' environment" do
-      Rails.stub(env: "development")
+      stub_rails_env "development"
       expect_to_raise
     end
 
     it "does not raise in other environments" do
-      Rails.stub(env: "production")
+      stub_rails_env "production"
       expect_not_to_raise
     end
   end
 
   context "when a Rack environment is detected" do
     before do
-      ENV.stub(:[]).with("DO_NOT_RAISE_FIXMES")
+      stub_env "DO_NOT_RAISE_FIXMES", nil
     end
 
     it "raises in the 'test' environment" do
-      ENV.stub(:[]).with("RACK_ENV").and_return("test")
+      stub_env "RACK_ENV", "test"
       expect_to_raise
     end
 
     it "raises in the 'development' environment" do
-      ENV.stub(:[]).with("RACK_ENV").and_return("development")
+      stub_env "RACK_ENV", "development"
       expect_to_raise
     end
 
     it "does not raise in other environments" do
-      ENV.stub(:[]).with("RACK_ENV").and_return("production")
+      stub_env "RACK_ENV", "production"
       expect_not_to_raise
     end
   end
 
   it "does not raise when the DO_NOT_RAISE_FIXMES environment variable is set" do
-    ENV.stub(:[]).with("DO_NOT_RAISE_FIXMES").and_return("true")
+    stub_env "DO_NOT_RAISE_FIXMES", true
     expect_not_to_raise
   end
 
   private
+
+  def stub_rails_env(value)
+    allow(Rails).to receive(:env).and_return(value)
+  end
+
+  def stub_env(name, value)
+    allow(ENV).to receive(:[]).with(name).and_return(value)
+  end
 
   def expect_to_raise
     expect { FIXME "2013-12-31: X" }.to raise_error(Fixme::UnfixedError)

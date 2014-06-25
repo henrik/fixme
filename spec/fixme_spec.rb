@@ -9,9 +9,11 @@ describe Fixme, "#FIXME" do
   end
 
   it "raises on the given date" do
+    today = Date.today
+
     expect {
-      FIXME "#{Date.today.to_s}: Remove this stuff."
-    }.to raise_error(Fixme::UnfixedError, "Fix by #{Date.today.to_s}: Remove this stuff.")
+      FIXME "#{today}: Remove this stuff."
+    }.to raise_error(Fixme::UnfixedError, "Fix by #{today}: Remove this stuff.")
   end
 
   it "does not raise before the given date" do

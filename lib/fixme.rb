@@ -5,7 +5,7 @@ module Fixme
   UnfixedError = Class.new(StandardError)
   Details = Struct.new(:full_message, :backtrace, :date, :message)
 
-  DEFAULT_EXPLODER = proc { |details| raise(UnfixedError, details.full_message, details.backtrace) }
+  DEFAULT_EXPLODER = ->(details) { raise(UnfixedError, details.full_message, details.backtrace) }
 
   def self.reset_configuration
     explode_with(&DEFAULT_EXPLODER)

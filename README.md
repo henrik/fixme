@@ -39,8 +39,8 @@ So you can configure the library to do something other than raise:
 ```
 # In a Rails project, this might be in config/initializers/fixme.rb:
 Fixme.explode_with do |message|
-  YourOwnCode.email_developers(message)
-  YourOwnCode.notify_chat(message)
+  YourOwnCodeOrSomeLibrary.email_developers(message)
+  YourOwnCodeOrSomeLibrary.notify_chat(message)
 end
 ```
 
@@ -48,7 +48,7 @@ If you want the parsed date and the message separately, do:
 
 ```
 Fixme.explode_with do |_, date, message|
-  YourOwnCode.log(date, message)
+  YourOwnCodeOrSomeLibrary.log(date, message)
 end
 ```
 

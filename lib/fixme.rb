@@ -32,7 +32,7 @@ module Fixme
   end
 
   class Runner
-    RUN_ONLY_IN_FRAMEWORK_ENVS = [ "", "test", "development" ]
+    RUN_ONLY_IN_THESE_FRAMEWORK_ENVS = [ "", "test", "development" ]
 
     def initialize(date_and_message)
       @date_and_message = date_and_message
@@ -40,7 +40,7 @@ module Fixme
 
     def run
       return if ENV["DISABLE_FIXME_LIB"]
-      return unless RUN_ONLY_IN_FRAMEWORK_ENVS.include?(framework_env.to_s)
+      return unless RUN_ONLY_IN_THESE_FRAMEWORK_ENVS.include?(framework_env.to_s)
 
       due_date, message = parse
 

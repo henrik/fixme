@@ -2,9 +2,10 @@ require "fixme/version"
 require "date"
 
 module Fixme
-  class UnfixedError < StandardError; end
+  UnfixedError = Class.new(StandardError)
+  Details = Struct.new(:full_message, :backtrace, :date, :message)
 
-  DEFAULT_EXPLODER = proc { |message| raise(UnfixedError, message) }
+  DEFAULT_EXPLODER = proc { |details| raise(UnfixedError, details.full_message, details.backtrace) }
 
   def self.reset_configuration
     explode_with(&DEFAULT_EXPLODER)
@@ -16,7 +17,8 @@ module Fixme
 
   def self.explode(date, message)
     full_message = "Fix by #{date}: #{message}"
-    @explode_with.call(full_message, date, message)
+    backtrace = caller.reverse.take_while { |line| !line.include?(__FILE__) }.reverse
+    @explode_with.call Details.new(full_message, backtrace, date, message)
   end
 
   reset_configuration

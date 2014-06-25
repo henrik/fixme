@@ -34,19 +34,13 @@ So you can configure the library to do something other than raise:
 
 ```
 # In a Rails project, this might be in config/initializers/fixme.rb
-Fixme.explode_with do |full_message|
-  YourOwnCodeOrSomeLibrary.email_developers(full_message)
-  YourOwnCodeOrSomeLibrary.notify_chat(full_message)
+Fixme.explode_with do |details|
+  YourOwnCodeOrSomeLibrary.email_developers(details.full_message)
+  YourOwnCodeOrSomeLibrary.notify_chat(details.full_message)
 end
 ```
 
-If you want the parsed date and the message separately, do:
-
-```
-Fixme.explode_with do |_, date, message|
-  YourOwnCodeOrSomeLibrary.log(date, message)
-end
-```
+There's also `details.date`, `details.message` and `details.backtrace`.
 
 ### Selectively disable
 

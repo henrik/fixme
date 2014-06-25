@@ -26,6 +26,14 @@ describe Fixme, "#FIXME" do
     }.not_to raise_error
   end
 
+  it "truncates the backtrace to exclude itself" do
+    begin
+      FIXME "2013-12-31: Remove this stuff."
+    rescue => e
+      expect(e.backtrace.first).to include("fixme_spec.rb:")
+    end
+  end
+
   # Had a bug with ": " in the message.
   it "parses the date and message flawlessly" do
     expect {
@@ -98,34 +106,19 @@ describe Fixme, "#FIXME" do
     expect_not_to_raise
   end
 
-  context "configuring an alternative to raising" do
-    it "lets you provide a block" do
-      log = []
+  it "lets you configure an alternative to raising" do
+    log = nil
 
-      Fixme.explode_with do |full_message, date, message|
-        log << [ full_message, date, message ]
-      end
-
-      FIXME "2013-12-31: Do not explode."
-
-      expect(log.last).to eq [
-        "Fix by 2013-12-31: Do not explode.",
-        Date.new(2013, 12, 31),
-        "Do not explode.",
-      ]
+    Fixme.explode_with do |details|
+      log = details
     end
 
-    it "lets the block take a subset of parameters" do
-      log = []
+    FIXME "2013-12-31: Do not explode."
 
-      Fixme.explode_with do |full_message|
-        log << full_message
-      end
-
-      FIXME "2013-12-31: Do not explode."
-
-      expect(log.last).to eq "Fix by 2013-12-31: Do not explode."
-    end
+    expect(log.full_message).to eq "Fix by 2013-12-31: Do not explode."
+    expect(log.date).to eq Date.new(2013, 12, 31)
+    expect(log.message).to eq "Do not explode."
+    expect(log.backtrace.first).to include "fixme_spec.rb:"
   end
 
   private

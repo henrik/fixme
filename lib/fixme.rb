@@ -39,7 +39,7 @@ module Fixme
     end
 
     def run
-      return if ENV["DO_NOT_RAISE_FIXMES"]
+      return if ENV["DISABLE_FIXME_LIB"]
       return unless RUN_ONLY_IN_FRAMEWORK_ENVS.include?(framework_env.to_s)
 
       due_date, message = parse

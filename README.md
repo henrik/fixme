@@ -28,7 +28,7 @@ If `Rails.env` (Ruby on Rails) or `ENV["RACK_ENV"]` (e.g. Sinatra) is present, i
 
 ### Selectively disable
 
-If you don't want your CI server to raise, make it set the environment variable `DO_NOT_RAISE_FIXMES`. I like having CI raise them, though.
+If you don't want your CI server to raise, make it set the environment variable `DISABLE_FIXME_LIB`. I like having CI raise them, though.
 
 ### Do something other than raise
 

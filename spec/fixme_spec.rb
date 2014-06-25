@@ -74,7 +74,7 @@ describe Fixme, "#FIXME" do
 
   context "when a Rack environment is detected" do
     before do
-      stub_env "DO_NOT_RAISE_FIXMES", nil
+      stub_env "DISABLE_FIXME_LIB", nil
     end
 
     it "raises in the 'test' environment" do
@@ -93,8 +93,8 @@ describe Fixme, "#FIXME" do
     end
   end
 
-  it "does not raise when the DO_NOT_RAISE_FIXMES environment variable is set" do
-    stub_env "DO_NOT_RAISE_FIXMES", true
+  it "does not raise when the DISABLE_FIXME_LIB environment variable is set" do
+    stub_env "DISABLE_FIXME_LIB", true
     expect_not_to_raise
   end
 

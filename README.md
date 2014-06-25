@@ -26,10 +26,6 @@ Protip: make sure it's clear from the exception or from a separate comment just 
 
 If `Rails.env` (Ruby on Rails) or `ENV["RACK_ENV"]` (e.g. Sinatra) is present, it will only ever raise in the `"test"` and `"development"` environments. That is, the production app will never raise these exceptions.
 
-### Selectively disable
-
-If you e.g. don't want your CI server to raise, make it set the environment variable `DISABLE_FIXME_LIB`.
-
 ### Do something other than raise
 
 When these exceptions trigger on your CI server they stop the line, blocking your delivery chain until they're addressed. This could be what you want, or it could be a little annoying.
@@ -51,6 +47,10 @@ Fixme.explode_with do |_, date, message|
   YourOwnCodeOrSomeLibrary.log(date, message)
 end
 ```
+
+### Selectively disable
+
+If you e.g. don't want your CI server to raise, make it set the environment variable `DISABLE_FIXME_LIB`.
 
 
 ## Installation

@@ -34,9 +34,9 @@ So you can configure the library to do something other than raise:
 
 ```
 # In a Rails project, this might be in config/initializers/fixme.rb
-Fixme.explode_with do |message|
-  YourOwnCodeOrSomeLibrary.email_developers(message)
-  YourOwnCodeOrSomeLibrary.notify_chat(message)
+Fixme.explode_with do |full_message|
+  YourOwnCodeOrSomeLibrary.email_developers(full_message)
+  YourOwnCodeOrSomeLibrary.notify_chat(full_message)
 end
 ```
 

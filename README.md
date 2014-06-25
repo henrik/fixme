@@ -33,7 +33,7 @@ When these exceptions trigger on your CI server they stop the line, blocking you
 So you can configure the library to do something other than raise:
 
 ```
-# In a Rails project, this might be in config/initializers/fixme.rb:
+# In a Rails project, this might be in config/initializers/fixme.rb
 Fixme.explode_with do |message|
   YourOwnCodeOrSomeLibrary.email_developers(message)
   YourOwnCodeOrSomeLibrary.notify_chat(message)

@@ -22,8 +22,6 @@ For simplicity, the date comparison uses machine-local time (not e.g. the Rails 
 
 Protip: make sure it's clear from the exception or from a separate comment just what should be done – sometimes not even the person who wrote the quickfix will remember what you're meant to change.
 
-This library is an extraction of a helper (originally called `wip_raise`) we tried and liked at [Barsoom](http://barsoom.se).
-
 ### Environment awareness
 
 If `Rails.env` (Ruby on Rails) or `ENV["RACK_ENV"]` (e.g. Sinatra) is present, it will only ever raise in the `"test"` and `"development"` environments. That is, the production app will never raise these exceptions.

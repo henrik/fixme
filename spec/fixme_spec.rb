@@ -26,7 +26,7 @@ describe Fixme, "#FIXME" do
     }.not_to raise_error
   end
 
-  it "truncates the backtrace to exclude itself" do
+  it "truncates the backtrace to exclude the library itself" do
     begin
       FIXME "2013-12-31: Remove this stuff."
     rescue => e

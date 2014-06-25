@@ -2,6 +2,10 @@ require "fixme"
 require "timecop"
 
 describe Fixme, "#FIXME" do
+  before do
+    Fixme.reset_configuration
+  end
+
   it "raises after the given date" do
     expect {
       FIXME "2013-12-31: Remove this stuff."
@@ -92,6 +96,36 @@ describe Fixme, "#FIXME" do
   it "does not raise when the DO_NOT_RAISE_FIXMES environment variable is set" do
     stub_env "DO_NOT_RAISE_FIXMES", true
     expect_not_to_raise
+  end
+
+  context "configuring an alternative to raising" do
+    it "lets you provide a block" do
+      log = []
+
+      Fixme.explode_with do |full_message, date, message|
+        log << [ full_message, date, message ]
+      end
+
+      FIXME "2013-12-31: Do not explode."
+
+      expect(log.last).to eq [
+        "Fix by 2013-12-31: Do not explode.",
+        Date.new(2013, 12, 31),
+        "Do not explode.",
+      ]
+    end
+
+    it "lets the block take a subset of parameters" do
+      log = []
+
+      Fixme.explode_with do |full_message|
+        log << full_message
+      end
+
+      FIXME "2013-12-31: Do not explode."
+
+      expect(log.last).to eq "Fix by 2013-12-31: Do not explode."
+    end
   end
 
   private

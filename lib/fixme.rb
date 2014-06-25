@@ -4,6 +4,25 @@ require "date"
 module Fixme
   class UnfixedError < StandardError; end
 
+  DEFAULT_EXPLODER = proc { |message| raise(UnfixedError, message) }
+
+  def self.reset_configuration
+    explode_with(&DEFAULT_EXPLODER)
+  end
+
+  def self.explode_with(&block)
+    @explode_with = block
+  end
+
+  def self.explode(date, message)
+    full_message = "Fix by #{date}: #{message}"
+    @explode_with.call(full_message, date, message)
+  end
+
+  reset_configuration
+end
+
+module Fixme
   module Mixin
     def FIXME(date_and_message)
       # In a separate class to avoid mixing in privates.
@@ -26,9 +45,7 @@ module Fixme
       due_date, message = parse
 
       disallow_timecop do
-        if Date.today >= due_date
-          raise UnfixedError, "Fix by #{due_date}: #{message}"
-        end
+        Fixme.explode(due_date, message) if Date.today >= due_date
       end
     end
 

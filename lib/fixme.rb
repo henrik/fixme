@@ -3,13 +3,14 @@ require "date"
 
 module Fixme
   UnfixedError = Class.new(StandardError)
-  Details = Struct.new(:full_message, :backtrace, :date, :message)
+
+  Details = Struct.new(:full_message, :backtrace, :date, :message) do
+    def due_days_ago
+      Date.today - date
+    end
+  end
 
   DEFAULT_EXPLODER = ->(details) { raise(UnfixedError, details.full_message, details.backtrace) }
-
-  def self.reset_configuration
-    explode_with(&DEFAULT_EXPLODER)
-  end
 
   def self.explode_with(&block)
     @explode_with = block
@@ -19,6 +20,14 @@ module Fixme
     full_message = "Fix by #{date}: #{message}"
     backtrace = caller.reverse.take_while { |line| !line.include?(__FILE__) }.reverse
     @explode_with.call Details.new(full_message, backtrace, date, message)
+  end
+
+  def self.raise_from(details)
+    DEFAULT_EXPLODER.call(details)
+  end
+
+  def self.reset_configuration
+    explode_with(&DEFAULT_EXPLODER)
   end
 
   reset_configuration

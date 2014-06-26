@@ -40,7 +40,19 @@ Fixme.explode_with do |details|
 end
 ```
 
-There's also `details.date`, `details.message` and `details.backtrace`.
+There's also `details.date`, `details.due_days_ago`, `details.message` and `details.backtrace`.
+
+You can call `Fixme.raise_from(details)` to get the default behavior, if you want that under certain conditions:
+
+```
+Fixme.explode_with do |details|
+  if details.due_days_ago > 5
+    Fixme.raise_from(details)
+  else
+    YourOwnCodeOrSomeLibrary.notify_chat(details.full_message)
+  end
+end
+```
 
 ### Selectively disable
 

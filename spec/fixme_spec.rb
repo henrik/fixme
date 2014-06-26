@@ -119,6 +119,19 @@ describe Fixme, "#FIXME" do
     expect(log.date).to eq Date.new(2013, 12, 31)
     expect(log.message).to eq "Do not explode."
     expect(log.backtrace.first).to include "fixme_spec.rb:"
+
+    expect(log.due_days_ago).to eq(Date.today - log.date)
+    expect(log.due_days_ago).to be > 0
+  end
+
+  it "lets you use Fixme.raise_from in configuration" do
+    Fixme.explode_with do |details|
+      Fixme.raise_from(details)
+    end
+
+    expect {
+      FIXME "2013-12-31: Do not explode."
+    }.to raise_error(Fixme::UnfixedError, "Fix by 2013-12-31: Do not explode.")
   end
 
   private

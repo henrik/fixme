@@ -6,7 +6,7 @@ module Fixme
 
   Details = Struct.new(:full_message, :backtrace, :date, :message) do
     def due_days_ago
-      Date.today - date
+      (Date.today - date).to_i
     end
   end
 

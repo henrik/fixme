@@ -87,6 +87,7 @@ rake    # Run tests.
 ## Also see
 
 * [do_by](https://github.com/andyw8/do_by)
+* [fixme-elixir](https://github.com/henrik/fixme-elixir)
 
 
 ## Contributors

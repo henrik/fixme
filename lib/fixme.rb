@@ -4,9 +4,13 @@ require "date"
 module Fixme
   UnfixedError = Class.new(StandardError)
 
-  Details = Struct.new(:full_message, :backtrace, :date, :message) do
-    def due_days_ago
-      (Date.today - date).to_i
+  Details = Struct.new(:conditional, :backtrace) do
+    def method_missing(name, *args)
+      if conditional.respond_to?(name)
+        conditional.send(name, *args)
+      else
+        super
+      end
     end
   end
 
@@ -16,10 +20,9 @@ module Fixme
     @explode_with = block
   end
 
-  def self.explode(date, message)
-    full_message = "Fix by #{date}: #{message}"
+  def self.explode(conditional)
     backtrace = caller.reverse.take_while { |line| !line.include?(__FILE__) }.reverse
-    @explode_with.call Details.new(full_message, backtrace, date, message)
+    @explode_with.call Details.new(conditional, backtrace)
   end
 
   def self.raise_from(details)
@@ -53,10 +56,10 @@ module Fixme
       return if ENV["DISABLE_FIXME_LIB"]
       return unless RUN_ONLY_IN_THESE_FRAMEWORK_ENVS.include?(framework_env.to_s)
 
-      due_date, message = parse
+      conditional = parse
 
       disallow_timecop do
-        Fixme.explode(due_date, message) if Date.today >= due_date
+        Fixme.explode(conditional) if conditional.true?
       end
     end
 
@@ -76,7 +79,28 @@ module Fixme
 
     def parse
       raw_date, message = @date_and_message.split(": ", 2)
-      [ Date.parse(raw_date), message ]
+      DateConditional.new(raw_date, message)
+    end
+  end
+
+  class DateConditional
+    attr_reader :date, :message
+
+    def initialize(raw_date, message)
+      @date = Date.parse(raw_date)
+      @message = message
+    end
+
+    def true?
+      Date.today >= date
+    end
+
+    def full_message
+      "Fix by #{date}: #{message}"
+    end
+
+    def due_days_ago
+      (Date.today - date).to_i
     end
   end
 end

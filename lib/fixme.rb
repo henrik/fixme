@@ -38,18 +38,18 @@ end
 
 module Fixme
   module Mixin
-    def FIXME(date_and_message)
+    def FIXME(condition_and_message)
       # In a separate class to avoid mixing in privates.
       # http://thepugautomatic.com/2014/02/private-api/
-      Runner.new(date_and_message).run
+      Runner.new(condition_and_message).run
     end
   end
 
   class Runner
     RUN_ONLY_IN_THESE_FRAMEWORK_ENVS = [ "", "test", "development" ]
 
-    def initialize(date_and_message)
-      @date_and_message = date_and_message
+    def initialize(condition_and_message)
+      @condition_and_message = condition_and_message
     end
 
     def run
@@ -78,8 +78,12 @@ module Fixme
     end
 
     def parse
-      raw_date, message = @date_and_message.split(": ", 2)
-      DateConditional.new(raw_date, message)
+      raw_condition, message = @condition_and_message.split(": ", 2)
+      if raw_condition.include?(" >= ")
+        GemConditional.new(raw_condition, message)
+      else
+        DateConditional.new(raw_condition, message)
+      end
     end
   end
 
@@ -101,6 +105,26 @@ module Fixme
 
     def due_days_ago
       (Date.today - date).to_i
+    end
+  end
+
+  class GemConditional
+    attr_reader :component, :version, :message
+
+    def initialize(raw_condition, message)
+      @component, _, @version = raw_condition.split(" ", 3)
+      @message = message
+    end
+
+    def true?
+      spec = Bundler.locked_gems.specs.detect{|g| g.name == component}
+      if spec
+        spec.version >= Gem::Version.new(version)
+      end
+    end
+
+    def full_message
+      "Fix when #{component} >= #{version}: #{message}"
     end
   end
 end

@@ -20,6 +20,18 @@ You may want to use these bad boys next to:
 
 For simplicity, the date comparison uses machine-local time (not e.g. the Rails configured time zone).
 
+Alternatively, the `FIXME()` method can also raise if a certain version of a component is installed:
+
+```
+FIXME "rspec >= 2.11: switch to expect syntax"
+```
+
+This will raise an exception once you have rspec >= 2.11 in your bundle. For
+now only the ">=" constraint is supported.
+
+Note that this form assumes you use bundler, and it won't raise if the specified
+gem is not part of the bundle.
+
 Protip: make sure it's clear from the exception or from a separate comment just what should be done – sometimes not even the person who wrote the quickfix will remember what you're meant to change.
 
 ### Environment awareness

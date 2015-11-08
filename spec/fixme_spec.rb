@@ -41,6 +41,24 @@ describe Fixme, "#FIXME" do
     }.to raise_error("Fix by 2013-12-31: Remove this: and this.")
   end
 
+  it "accepts a version constraint instead of a date as a condition" do
+    expect {
+      FIXME "rspec >= 0.1: don't forget to do this."
+    }.to raise_error("Fix when rspec >= 0.1: don't forget to do this.")
+  end
+
+  it "doesn't explode if a version constraint is not validated" do
+    expect {
+      FIXME "rspec >= 999.9.3: don't forget to do this."
+    }.not_to raise_error
+  end
+
+  it "doesn't explode if gem is not part of the bundle" do
+    expect {
+      FIXME "not-installed-gem >= 0.0: don't forget to do this."
+    }.not_to raise_error
+  end
+
   it "is available everywhere" do
     expect {
       "some random object".instance_eval do

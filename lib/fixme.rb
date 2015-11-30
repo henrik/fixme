@@ -76,6 +76,12 @@ module Fixme
 
     def parse
       raw_date, message = @date_and_message.split(": ", 2)
+
+      unless message
+        raise %{FIXME does not follow the "2015-01-01: Foo" format: #{@date_and_message.inspect}}
+      end
+
+
       [ Date.parse(raw_date), message ]
     end
   end

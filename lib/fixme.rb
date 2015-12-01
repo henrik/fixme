@@ -2,7 +2,8 @@ require "fixme/version"
 require "date"
 
 module Fixme
-  UnfixedError = Class.new(StandardError)
+  # We intentionally do NOT inherit from StandardError, because we don't want these errors caught by a blanket "rescue".
+  UnfixedError = Class.new(Exception)
 
   Details = Struct.new(:full_message, :backtrace, :date, :message) do
     def due_days_ago

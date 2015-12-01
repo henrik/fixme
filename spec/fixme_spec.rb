@@ -29,7 +29,7 @@ describe Fixme, "#FIXME" do
   it "truncates the backtrace to exclude the library itself" do
     begin
       FIXME "2013-12-31: Remove this stuff."
-    rescue => e
+    rescue Fixme::UnfixedError => e
       expect(e.backtrace.first).to include("fixme_spec.rb:")
     end
   end
@@ -51,6 +51,15 @@ describe Fixme, "#FIXME" do
     expect {
       "some random object".instance_eval do
         FIXME "2013-12-31: Make it work everywhere."
+      end
+    }.to raise_error(Fixme::UnfixedError)
+  end
+
+  it "is not caught by a blanket 'rescue'" do
+    expect {
+      begin
+        FIXME "2000-01-01: Don't be caught."
+      rescue
       end
     }.to raise_error(Fixme::UnfixedError)
   end

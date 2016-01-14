@@ -20,8 +20,6 @@ You may want to use these bad boys next to:
 
 For simplicity, the date comparison uses machine-local time (not e.g. the Rails configured time zone).
 
-Protip: make sure it's clear from the exception or from a separate comment just what should be done – sometimes not even the person who wrote the quickfix will remember what you're meant to change.
-
 ### Environment awareness
 
 If `Rails.env` (Ruby on Rails) or `ENV["RACK_ENV"]` (e.g. Sinatra) is present, it will only ever raise in the `"test"` and `"development"` environments. That is, the production app will never raise these exceptions.
@@ -57,6 +55,11 @@ end
 ### Selectively disable
 
 If you e.g. don't want your CI server to raise, make it set the environment variable `DISABLE_FIXME_LIB`.
+
+### Pro-tips
+
+* Make sure it's clear from the exception or from a separate comment just what should be done – sometimes not even the person who wrote the quickfix will remember what you're meant to change.
+* If a FIXME raises right in a class/module, rather than inside an instance method, there may be follow-on errors (about missing methods and such) since the rest of that file won't execute. Being aware of this can help understand otherwise confusing CI failures.
 
 
 ## Installation

@@ -44,7 +44,7 @@ describe Fixme, "#FIXME" do
   it "complains if the desired format is not adhered to" do
     expect {
       FIXME "9999-01-01, Learn to: type"
-    }.to raise_error(%{FIXME does not follow the "2015-01-01: Foo" format: "9999-01-01, Learn to: type"})
+    }.to raise_error(%{FIXME does not follow the "2015-01-31: Foo" format: "9999-01-01, Learn to: type"})
   end
 
   it "is available everywhere" do

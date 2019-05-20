@@ -79,7 +79,7 @@ module Fixme
       match = @date_and_message.match(/\A(\d\d\d\d-\d\d?-\d\d?): (.+)\z/)
 
       unless match
-        raise %{FIXME does not follow the "2015-01-01: Foo" format: #{@date_and_message.inspect}}
+        raise %{FIXME does not follow the "2015-01-31: Foo" format: #{@date_and_message.inspect}}
       end
 
       raw_date, message = match.captures

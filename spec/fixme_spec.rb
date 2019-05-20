@@ -41,10 +41,16 @@ describe Fixme, "#FIXME" do
     }.to raise_error("Fix by 2013-12-31: Remove this: and this.")
   end
 
-  it "complains if the desired format is not adhered to" do
+  it "complains if the desired message format is not adhered to" do
     expect {
       FIXME "9999-01-01, Learn to: type"
     }.to raise_error(%{FIXME does not follow the "2015-01-31: Foo" format: "9999-01-01, Learn to: type"})
+  end
+
+  it "complains if the extended ISO 8601 date format is not adhered to" do
+    expect {
+      FIXME "9999-01-1: Foo"
+    }.to raise_error(%{FIXME does not follow the "2015-01-31: Foo" format: "9999-01-1: Foo"})
   end
 
   it "is available everywhere" do

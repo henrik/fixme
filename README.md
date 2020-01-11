@@ -59,7 +59,7 @@ If you e.g. don't want your CI server to raise, make it set the environment vari
 ### Pro-tips
 
 * Make sure it's clear from the exception or from a separate comment just what should be done – sometimes not even the person who wrote the FIXME will remember what you're meant to change.
-* If a FIXME raises right in a class/module, rather than inside an instance method, there may be follow-on errors (about missing methods and such) since the rest of that file won't execute. Being aware of this can help understand otherwise confusing CI failures.
+* If a FIXME raises right in a class/module, rather than inside a method, there may be follow-on errors (about missing methods and such) since the rest of that file won't execute. Being aware of this can help understand otherwise confusing CI failures.
 
 
 ## Installation

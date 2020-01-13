@@ -64,7 +64,11 @@ module Fixme
     private
 
     def framework_env
-      defined?(Rails) ? Rails.env : ENV["RACK_ENV"]
+      if defined?(Rails)
+        Rails.env
+      else
+        ENV["RACK_ENV"] || ENV["APP_ENV"]
+      end
     end
 
     def disallow_timecop(&block)

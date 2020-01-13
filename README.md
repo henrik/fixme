@@ -22,7 +22,7 @@ For simplicity, the date comparison uses machine-local time (not e.g. the Rails 
 
 ### Environment awareness
 
-If `Rails.env` (Ruby on Rails) or `ENV["RACK_ENV"]` (e.g. Sinatra) is present, it will only ever raise in the `"test"` and `"development"` environments. That is, the production app will never raise these exceptions.
+If `Rails.env` (Ruby on Rails), `ENV["APP_ENV"]` or `ENV["RACK_ENV"]` (e.g. Sinatra) is present, it will only ever raise in the `"test"` and `"development"` environments. That is, the production app will never raise these exceptions.
 
 ### Do something other than raise
 

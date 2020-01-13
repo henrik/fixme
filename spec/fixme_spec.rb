@@ -101,7 +101,28 @@ describe Fixme, "#FIXME" do
     end
   end
 
-  context "when a Rack environment is detected" do
+  context "when an APP_ENV is detected" do
+    before do
+      stub_env "DISABLE_FIXME_LIB", nil
+    end
+
+    it "raises in the 'test' environment" do
+      stub_env "APP_ENV", "test"
+      expect_to_raise
+    end
+
+    it "raises in the 'development' environment" do
+      stub_env "APP_ENV", "development"
+      expect_to_raise
+    end
+
+    it "does not raise in other environments" do
+      stub_env "APP_ENV", "production"
+      expect_not_to_raise
+    end
+  end
+
+  context "when a RACK_ENV is detected" do
     before do
       stub_env "DISABLE_FIXME_LIB", nil
     end

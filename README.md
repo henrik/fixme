@@ -2,7 +2,7 @@
 
 FIXME comments that raise after a certain point in time:
 
-```
+```ruby
 FIXME "2014-07-31: Stop hard-coding currency."
 currency = "USD"
 ```
@@ -30,7 +30,7 @@ When these exceptions trigger on your CI server they stop the line, blocking you
 
 So you can configure the library to do something other than raise:
 
-```
+```ruby
 # In a Rails project, this might be in config/initializers/fixme.rb
 Fixme.explode_with do |details|
   YourOwnCodeOrSomeLibrary.email_developers(details.full_message)
@@ -42,7 +42,7 @@ There's also `details.date`, `details.due_days_ago`, `details.message` and `deta
 
 You can call `Fixme.raise_from(details)` to get the default behavior, if you want that under certain conditions:
 
-```
+```ruby
 Fixme.explode_with do |details|
   if details.due_days_ago > 5
     Fixme.raise_from(details)

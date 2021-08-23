@@ -107,16 +107,19 @@ describe Fixme, "#FIXME" do
     end
 
     it "raises in the 'test' environment" do
+      stub_env "RACK_ENV", nil
       stub_env "APP_ENV", "test"
       expect_to_raise
     end
 
     it "raises in the 'development' environment" do
+      stub_env "RACK_ENV", nil
       stub_env "APP_ENV", "development"
       expect_to_raise
     end
 
     it "does not raise in other environments" do
+      stub_env "RACK_ENV", nil
       stub_env "APP_ENV", "production"
       expect_not_to_raise
     end

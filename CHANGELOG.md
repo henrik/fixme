@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.1.1
+
+* No functional changes. Opted into MFA for Gem releases: https://guides.rubygems.org/mfa-requirement-opt-in/
+
 ## 6.1.0
 
 * Checks `APP_ENV`, not just `RACK_ENV`, as this is [what Sinatra now encourages using](https://github.com/sinatra/sinatra/blob/master/CHANGELOG.md#200--2017-04-10).

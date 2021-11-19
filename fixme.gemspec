@@ -11,6 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Comments that raise after a certain point in time.}
   spec.homepage      = ""
   spec.license       = "MIT"
+  spec.metadata      = { "rubygems_mfa_required" => "true" }
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }

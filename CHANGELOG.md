@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+* No functional changes. Added `# frozen_string_literal: true` to all Ruby files.
+
 ## 6.1.1
 
 * No functional changes. Opted into MFA for Gem releases: https://guides.rubygems.org/mfa-requirement-opt-in/

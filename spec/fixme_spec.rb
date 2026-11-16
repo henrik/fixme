@@ -1,7 +1,9 @@
 require "fixme"
 require "timecop"
 
-describe Fixme, "#FIXME" do
+RSpec.configure(&:disable_monkey_patching!)
+
+RSpec.describe Fixme, "#FIXME" do
   before do
     Fixme.reset_configuration
   end
